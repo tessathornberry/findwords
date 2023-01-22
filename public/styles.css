@@ -29,7 +29,9 @@ picture,
 video,
 canvas,
 svg {
-  display: block;
+  /* display: block; */
+  display: flex;
+
   max-width: 100%;
 }
 
@@ -68,13 +70,6 @@ textarea {
   padding: 1vh;
 }
 
-select {
-  width: 25%;
-  /* height: auto; */
-  margin: 2vh;
-  padding: 1vh;
-}
-
 .word {
   height: 10vh;
 }
@@ -82,16 +77,29 @@ select {
 .options {
   width: 100%;
   height: auto;
-  resize: none;
+  /* resize: none; */
   border-radius: 5px;
-  margin-top: 2vh;
   padding: 1vh;
   margin: auto;
   justify-content: stretch;
-  /* align-content: space-around; */
-  display: flex;
+}
+
+select {
+  width: 25%;
+  min-width: 80px;
+  margin: 2vh;
+  padding: 1vh;
 }
 
 .completeWord, .caseSensitive {
-  width: 100%;
+  width: auto;
+  /* justify-content: space-between; */
+}
+
+/* .number {
+  display: inline-flex;
+} */
+
+.counted {
+  font-weight: 800;
 }
