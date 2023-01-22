@@ -63,5 +63,35 @@ textarea {
   word-wrap: break-word;
   word-break: break-all;
   resize: none;
+  border-radius: 5px;
+  margin-top: 2vh;
+  padding: 1vh;
+}
 
+select {
+  width: 25%;
+  /* height: auto; */
+  margin: 2vh;
+  padding: 1vh;
+}
+
+.word {
+  height: 10vh;
+}
+
+.options {
+  width: 100%;
+  height: auto;
+  resize: none;
+  border-radius: 5px;
+  margin-top: 2vh;
+  padding: 1vh;
+  margin: auto;
+  justify-content: stretch;
+  /* align-content: space-around; */
+  display: flex;
+}
+
+.completeWord, .caseSensitive {
+  width: 100%;
 }
