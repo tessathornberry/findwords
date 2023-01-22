@@ -12,6 +12,7 @@ const App = () => {
   const [word, setWord] = useState('');
   const [completeWord, setCompleteWord] = useState('true');
   const [caseSensitive, setCaseSensitive] = useState('true');
+
   useEffect(() => {
     CountWords();
   }, [phrase, word, completeWord, caseSensitive]);
@@ -24,6 +25,46 @@ const App = () => {
     setWord(e.target.value)
   };
 
+  const wholeWord = (arrayOfIndexes) => {
+    var count = 0;
+    console.log('arrayOfIndexes', arrayOfIndexes);
+    var open = " [{(\"\'</";
+    var close = " ]})\"\'>/!?:;,.";
+    var begin = false;
+    var end = false;
+
+    if (arrayOfIndexes[0] === 0) {
+      begin = true;
+    }
+/** try to get this logic to work */
+    for (var j = 0; j < phrase.length; j += 2) {
+      if (open.includes(arrayOfIndexes[j]) || begin === true) {
+        begin = true;
+      }
+
+      console.log('close inclides', close.includes(arrayOfIndexes[j+1]))
+      if (close.includes(arrayOfIndexes[j+1]) || arrayOfIndexes[j+1] === phrase.length) {
+        end = true;
+        console.log('endhere', end)
+      }
+
+      console.log('begin', begin, 'end', end)
+      if (begin && end) {
+    console.log('count', count)
+
+        count++;
+    console.log('count', count)
+
+        console.log(count);
+      }
+
+      begin = false;
+      end = false;
+    }
+    // console.log('count', count)
+    return count;
+  }
+
   const CountWords = () => {
     var count = 0;
     var acceptablePunctuation = ",?!.:; "
@@ -31,14 +72,40 @@ const App = () => {
       if (completeWord === 'false' && caseSensitive === 'false') {
         if (phrase.toLowerCase().includes(word.toLowerCase())) {
           var splitPhrase = phrase.toLowerCase().split(word.toLowerCase());
-          count = splitPhrase.length - 1;
+          count += splitPhrase.length - 1;
           return <div className="counted">{count}</div>;
+        } else {
+          return <div className="counted">0</div>;
         }
       } else if (completeWord === 'false' && caseSensitive === 'true') {
         if (phrase.includes(word)) {
           var splitPhrase = phrase.split(word);
           count = splitPhrase.length - 1;
           return <div className="counted">{count}</div>;
+        } else {
+          return <div className="counted">0</div>;
+        }
+      } else if (completeWord === 'true' && caseSensitive === 'true') {
+        if (phrase.includes(word)) {
+          var index = 0;
+          var pairIndexes = [];
+          while (index !== -1) {
+            index = phrase.indexOf(word, index);
+            if (index !== -1) {
+              if (index === 0) {
+                pairIndexes.push(0);
+              } else {
+                pairIndexes.push(index - 1);
+              }
+              pairIndexes.push(index + word.length);
+              index++;
+            }
+            console.log('pairIndexes',pairIndexes)
+          }
+            count = wholeWord(pairIndexes);
+            return <div className="counted">{count}</div>;
+        } else {
+          return <div className="counted">0</div>;
         }
       }
 
