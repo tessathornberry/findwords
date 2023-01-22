@@ -13,9 +13,6 @@ const App = () => {
   const [completeWord, setCompleteWord] = useState('true');
   const [caseSensitive, setCaseSensitive] = useState('true');
   useEffect(() => {
-    console.log(completeWord, caseSensitive)
-    console.log(typeof completeWord, typeof caseSensitive)
-
     CountWords();
   }, [phrase, word, completeWord, caseSensitive]);
 
@@ -35,10 +32,16 @@ const App = () => {
         if (phrase.toLowerCase().includes(word.toLowerCase())) {
           var splitPhrase = phrase.toLowerCase().split(word.toLowerCase());
           count = splitPhrase.length - 1;
-          console.log(count)
+          return <div className="counted">{count}</div>;
+        }
+      } else if (completeWord === 'false' && caseSensitive === 'true') {
+        if (phrase.includes(word)) {
+          var splitPhrase = phrase.split(word);
+          count = splitPhrase.length - 1;
           return <div className="counted">{count}</div>;
         }
       }
+
     }
   }
 
