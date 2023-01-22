@@ -62,5 +62,6 @@ textarea {
   height: 25vh;
   word-wrap: break-word;
   word-break: break-all;
+  resize: none;
 
 }
