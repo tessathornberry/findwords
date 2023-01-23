@@ -25,6 +25,24 @@ const App = () => {
     setWord(e.target.value)
   };
 
+  const createBeginAndEndIndexes = (phrase, word) => {
+    var index = 0;
+    var pairIndexes = [];
+    while (index !== -1) {
+      index = phrase.indexOf(word, index);
+      if (index !== -1) {
+        if (index === 0) {
+          pairIndexes.push(0);
+        } else {
+          pairIndexes.push(index - 1);
+        }
+        pairIndexes.push(index + word.length);
+        index++;
+      }
+    }
+    return pairIndexes;
+  }
+
   const wholeWord = (arrayOfIndexes) => {
     var count = 0;
     console.log('arrayOfIndexes', arrayOfIndexes);
@@ -36,32 +54,19 @@ const App = () => {
     if (arrayOfIndexes[0] === 0) {
       begin = true;
     }
-/** try to get this logic to work */
     for (var j = 0; j < phrase.length; j += 2) {
-      if (open.includes(arrayOfIndexes[j]) || begin === true) {
+      if (open.includes(phrase[arrayOfIndexes[j]]) || begin === true) {
         begin = true;
       }
-
-      console.log('close inclides', close.includes(arrayOfIndexes[j+1]))
-      if (close.includes(arrayOfIndexes[j+1]) || arrayOfIndexes[j+1] === phrase.length) {
+      if (close.includes(phrase[arrayOfIndexes[j+1]]) || arrayOfIndexes[j+1] === phrase.length) {
         end = true;
-        console.log('endhere', end)
       }
-
-      console.log('begin', begin, 'end', end)
       if (begin && end) {
-    console.log('count', count)
-
         count++;
-    console.log('count', count)
-
-        console.log(count);
       }
-
       begin = false;
       end = false;
     }
-    // console.log('count', count)
     return count;
   }
 
@@ -87,27 +92,20 @@ const App = () => {
         }
       } else if (completeWord === 'true' && caseSensitive === 'true') {
         if (phrase.includes(word)) {
-          var index = 0;
-          var pairIndexes = [];
-          while (index !== -1) {
-            index = phrase.indexOf(word, index);
-            if (index !== -1) {
-              if (index === 0) {
-                pairIndexes.push(0);
-              } else {
-                pairIndexes.push(index - 1);
-              }
-              pairIndexes.push(index + word.length);
-              index++;
-            }
-            console.log('pairIndexes',pairIndexes)
-          }
-            count = wholeWord(pairIndexes);
-            return <div className="counted">{count}</div>;
+          count = wholeWord(createBeginAndEndIndexes(phrase, word));
+          return <div className="counted">{count}</div>;
+        } else {
+          return <div className="counted">0</div>;
+        }
+      } else if (completeWord === 'true' && caseSensitive === 'false') {
+        if (phrase.toLowerCase().includes(word.toLowerCase())) {
+          count = wholeWord(createBeginAndEndIndexes(phrase.toLowerCase(), word.toLowerCase()));
+          return <div className="counted">{count}</div>;
         } else {
           return <div className="counted">0</div>;
         }
       }
+
 
     }
   }
