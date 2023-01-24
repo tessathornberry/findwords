@@ -139,13 +139,11 @@ const App = () => {
           <option value={false}>false</option>
         </select>
       </div>
-      <div>
+      <div className="countResult">
         <h3 className="number">Times your word appears in the phrase above: </h3>
         <div className="counted">{CountWords()}</div>
       </div>
     </div>
-
-
     </AppBorder>
   )
 };
