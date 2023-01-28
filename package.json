@@ -7,6 +7,7 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "morgan": "^1.10.0",
+    "nodemon": "^2.0.20",
     "path": "^0.12.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -16,7 +17,7 @@
   "scripts": {
     "client-dev": "react-scripts start",
     "build": "react-scripts build",
-    "start": "node server/index.js",
+    "start": "nodemon server/index.js",
     "test": "react-scripts test"
   },
   "browserslist": {

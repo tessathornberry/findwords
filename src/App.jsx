@@ -38,8 +38,11 @@ const App = () => {
 
     axios.get("http://localhost:3000/wordSearch", {params: inputObject})
       .then(result => console.log(result.data))
-      .catch(err => console.log('error in App.jsx get'));
+      .catch(err => console.log('error in App.jsx get', err));
 
+      // return <div className="counted">{count}</div>;
+      //   } else {
+      //     return <div className="counted">0</div>;
   }
 
   return (

@@ -3,7 +3,7 @@ const express = require("express");
 const path = require("path");
 const cors = require('cors');
 const morgan = require('morgan');
-// const router = require('./routes.js');
+const controllers = require('./controllers.js');
 const app = express();
 
 app.use(express.static(path.join(__dirname, "public")));
@@ -14,10 +14,16 @@ app.use(morgan('dev'));
 app.use(cors());
 app.use(express.json());
 
-// app.use('/', router);
 app.get('/wordSearch', (req, res) => {
-  console.log('req.query', req.query);
-  res.json('a ok')
+  // console.log('req.query', req.query);
+  controllers.searchWords(req.query, (err, results) => {
+    if (err) {
+      res.status(404).send(err)
+    } else {
+      console.log('results', results)
+      res.json(results.toString())
+    }
+  })
 })
 
 const port = process.env.PORT || 3000;
