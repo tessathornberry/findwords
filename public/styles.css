@@ -122,13 +122,14 @@ select {
   border-radius: 50%;
 }
 
-
-
 .search {
   width: 100%;
   justify-content: space-between;
   display: inline-flex;
   align-content: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 button {
