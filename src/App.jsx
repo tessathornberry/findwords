@@ -4,9 +4,11 @@ import axios from 'axios';
 
 
 const AppBorder = styled.div`
+background-color: white;
 border: 1px solid gray;
 border-radius: 10px;
 padding: 1em;
+cursor: default;
 `;
 
 const App = () => {
@@ -53,7 +55,7 @@ const App = () => {
       <h2>Count how many times your word appears in a phrase:</h2>
       <form onSubmit={handleFormSubmit} onReset={handleFormReset}>
         <textarea className="phrase" type="text" name="phrase" aria-label="phrase to search" placeholder="Put the phrase you wish to search here..." value={phrase} onChange={updatePhrase} spellCheck="false" />
-        <textarea className="word" type="text" name="word" aria-label="word to search for" placeholder="Put the word you want counted here" value={word} onChange={updateWord} spellCheck="false" />
+        <textarea className="word" type="text" name="word" aria-label="word to search for" placeholder="Put the word you want counted here..." value={word} onChange={updateWord} spellCheck="false" />
         <div className="options">
           <div className="completeWord">
             <label>This is a complete word: </label>
@@ -71,7 +73,7 @@ const App = () => {
         </div>
         <div className="search">
           <button type="submit"  value="Submit" aria-label="search button">Search</button>
-          <button type="reset"  value="Reset" aria-label="reset button">Start Over</button>
+          <button className="reset"type="reset"  value="Reset" aria-label="reset button">Start Over</button>
         </div>
       <div className="countResult">
         <h3 className="number">Times your word appears in the phrase above: </h3>

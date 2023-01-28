@@ -7,20 +7,16 @@ const controllers = require('./controllers.js');
 const app = express();
 
 app.use(express.static(path.join(__dirname, "public")));
-// app.use(express.static(path.join(__dirname, "../build")));
-
 
 app.use(morgan('dev'));
 app.use(cors());
 app.use(express.json());
 
 app.get('/wordSearch', (req, res) => {
-  // console.log('req.query', req.query);
   controllers.searchWords(req.query, (err, results) => {
     if (err) {
       res.sendStatus(404);
     } else {
-      console.log('results', results)
       res.status(200).json(results);
     }
   })
