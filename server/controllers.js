@@ -7,14 +7,15 @@ let caseSensitive = ''; //boolean
 
 module.exports = {
   searchWords: (queryData, callback) => {
-    console.log("queryData", queryData);
+    // console.log("queryData", queryData);
     phrase = queryData.phrase;
     word = queryData.word;
     completeWord = queryData.completeWord; //boolean
     caseSensitive = queryData.caseSensitive; //boolean
 
     var results = countWords(phrase, word, completeWord, caseSensitive);
-    return callback(results);
+    console.log(results);
+    return callback(null, results);
   }
 };
 
@@ -38,7 +39,7 @@ module.exports = {
 
   const wholeWord = (arrayOfIndexes) => {
     var count = 0;
-    console.log('arrayOfIndexes', arrayOfIndexes);
+    // console.log('arrayOfIndexes', arrayOfIndexes);
     var open = " [{(\"\'</";
     var close = " ]})\"\'>/!?:;,.";
     var begin = false;

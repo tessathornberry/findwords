@@ -18,10 +18,10 @@ app.get('/wordSearch', (req, res) => {
   // console.log('req.query', req.query);
   controllers.searchWords(req.query, (err, results) => {
     if (err) {
-      res.status(404).send(err)
+      res.sendStatus(404);
     } else {
       console.log('results', results)
-      res.json(results.toString())
+      res.status(200).json(results);
     }
   })
 })

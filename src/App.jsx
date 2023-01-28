@@ -14,10 +14,7 @@ const App = () => {
   const [word, setWord] = useState('');
   const [completeWord, setCompleteWord] = useState('true');
   const [caseSensitive, setCaseSensitive] = useState('true');
-
-  // // useEffect(() => {
-  // //   // CountWords();
-  // // }, [phrase, word, completeWord, caseSensitive]);
+  const [returnedCount, setReturnedCount] = useState(null);
 
   let updatePhrase = (e) => {
     setPhrase(e.target.value)
@@ -29,7 +26,6 @@ const App = () => {
 
   let handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log(phrase, word, completeWord, caseSensitive);
     let inputObject = {};
     inputObject.phrase = phrase;
     inputObject.word = word;
@@ -37,18 +33,25 @@ const App = () => {
     inputObject.caseSensitive = caseSensitive;
 
     axios.get("http://localhost:3000/wordSearch", {params: inputObject})
-      .then(result => console.log(result.data))
+      .then(result => {
+        setReturnedCount(result.data);
+        return <div className="counted">{result.data}</div>;
+      })
       .catch(err => console.log('error in App.jsx get', err));
+  };
 
-      // return <div className="counted">{count}</div>;
-      //   } else {
-      //     return <div className="counted">0</div>;
-  }
+  let handleFormReset = (e) => {
+    setPhrase('');
+    setWord('');
+    setCompleteWord('true');
+    setCaseSensitive('true');
+    setReturnedCount(null);
+  };
 
   return (
     <AppBorder>
       <h2>Count how many times your word appears in a phrase:</h2>
-      <form onSubmit={handleFormSubmit}>
+      <form onSubmit={handleFormSubmit} onReset={handleFormReset}>
         <textarea className="phrase" type="text" name="phrase" aria-label="phrase to search" placeholder="Put the phrase you wish to search here..." value={phrase} onChange={updatePhrase} spellCheck="false" />
         <textarea className="word" type="text" name="word" aria-label="word to search for" placeholder="Put the word you want counted here" value={word} onChange={updateWord} spellCheck="false" />
         <div className="options">
@@ -66,11 +69,13 @@ const App = () => {
             <option value={false}>false</option>
           </select>
         </div>
-        <div className="search"><button type="submit"  value="Submit" aria-label="search button">Search</button></div>
+        <div className="search">
+          <button type="submit"  value="Submit" aria-label="search button">Search</button>
+          <button type="reset"  value="Reset" aria-label="reset button">Start Over</button>
+        </div>
       <div className="countResult">
         <h3 className="number">Times your word appears in the phrase above: </h3>
-        {/* <div className="counted">{CountWords()}</div> */}
-        <div className="counted">counted</div>
+        <div className="counted">{returnedCount}</div>
       </div>
       </div>
       </form>
