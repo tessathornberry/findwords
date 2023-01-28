@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
-// import axios from 'axios';
+import axios from 'axios';
 
 
 const AppBorder = styled.div`
@@ -27,9 +27,19 @@ const App = () => {
     setWord(e.target.value)
   };
 
-  let handleFormSubmit = () => {
-    // e.preventDefault();
+  let handleFormSubmit = (e) => {
+    e.preventDefault();
     console.log(phrase, word, completeWord, caseSensitive);
+    let inputObject = {};
+    inputObject.phrase = phrase;
+    inputObject.word = word;
+    inputObject.completeWord = completeWord;
+    inputObject.caseSensitive = caseSensitive;
+
+    axios.get("http://localhost:3000/wordSearch", {params: inputObject})
+      .then(result => console.log(result.data))
+      .catch(err => console.log('error in App.jsx get'));
+
   }
 
   return (
@@ -53,7 +63,7 @@ const App = () => {
             <option value={false}>false</option>
           </select>
         </div>
-        <div className="search"><button type="submit"  aria-label="search button">Search</button></div>
+        <div className="search"><button type="submit"  value="Submit" aria-label="search button">Search</button></div>
       <div className="countResult">
         <h3 className="number">Times your word appears in the phrase above: </h3>
         {/* <div className="counted">{CountWords()}</div> */}

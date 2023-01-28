@@ -3,30 +3,21 @@ const express = require("express");
 const path = require("path");
 const cors = require('cors');
 const morgan = require('morgan');
-
+// const router = require('./routes.js');
 const app = express();
 
-// app.use()
+app.use(express.static(path.join(__dirname, "public")));
+// app.use(express.static(path.join(__dirname, "../build")));
 
-// Serves up all static and generated assets in ../client/dist.
-app.use(express.static(path.join(__dirname, "../public")));
 
 app.use(morgan('dev'));
 app.use(cors());
 app.use(express.json());
 
+// app.use('/', router);
 app.get('/wordSearch', (req, res) => {
-console.log(req.body);
-
-// const phrase = req.body.phrase;
-// const word = req.body.word;
-// const completeWord = req.body.completeWord; //boolean
-// const caseSensitive = req.body.caseSensitive; //boolean
-
-
-
-
-
+  console.log('req.query', req.query);
+  res.json('a ok')
 })
 
 const port = process.env.PORT || 3000;
