@@ -56,8 +56,8 @@ h2, h3 {
 }
 
 main {
-  max-width: 75%;
-  min-width: 200px;
+  max-width: 85%;
+  min-width: 300px;
   padding: 16px;
   margin: auto;
 }
