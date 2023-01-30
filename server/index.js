@@ -12,7 +12,7 @@ app.use(morgan('dev'));
 app.use(cors());
 app.use(express.json());
 
-app.get('/*', (req, res) => {
+app.get('/wordSearch', (req, res) => {
   controllers.searchWords(req.query, (err, results) => {
     if (err) {
       res.sendStatus(404);
@@ -20,7 +20,7 @@ app.get('/*', (req, res) => {
       res.status(200).json(results);
     }
   })
-})
+});
 
 const port = process.env.PORT || 2999;
 

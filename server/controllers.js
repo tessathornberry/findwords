@@ -1,21 +1,15 @@
 const express = require('express');
 
-let phrase = '';
-let word = '';
-let completeWord = ''; //boolean
-let caseSensitive = ''; //boolean
+async function searchWords(queryData, callback) {
+    let phrase = queryData.phrase;
+    let word = queryData.word;
+    let completeWord = queryData.completeWord; //boolean
+    let caseSensitive = queryData.caseSensitive; //boolean
 
-module.exports = {
-  searchWords: (queryData, callback) => {
-    phrase = queryData.phrase;
-    word = queryData.word;
-    completeWord = queryData.completeWord; //boolean
-    caseSensitive = queryData.caseSensitive; //boolean
+    var results = await countWords(phrase, word, completeWord, caseSensitive);
 
-    var results = countWords(phrase, word, completeWord, caseSensitive);
     return callback(null, results);
-  }
-};
+  };
 
   const createBeginAndEndIndexes = (phrase, word) => {
     var index = 0;
@@ -35,7 +29,7 @@ module.exports = {
     return pairIndexes;
   };
 
-  const wholeWord = (arrayOfIndexes) => {
+  const wholeWord = (arrayOfIndexes, phrase) => {
     var count = 0;
     var open = " [{(\"\'</";
     var close = " ]})\"\'>/!?:;,.";
@@ -61,7 +55,7 @@ module.exports = {
     return count;
   };
 
-  const countWords = (phrase, word, completeWord, caseSensitive) => {
+  async function countWords(phrase, word, completeWord, caseSensitive) {
     var count = 0;
     var acceptablePunctuation = ",?!.:; "
     if (phrase.length > 0 && word.length > 0) {
@@ -83,14 +77,14 @@ module.exports = {
         }
       } else if (completeWord === 'true' && caseSensitive === 'true') {
         if (phrase.includes(word)) {
-          count = wholeWord(createBeginAndEndIndexes(phrase, word));
+          count = await wholeWord(createBeginAndEndIndexes(phrase, word), phrase);
           return count;
         } else {
           return 0;
         }
       } else if (completeWord === 'true' && caseSensitive === 'false') {
         if (phrase.toLowerCase().includes(word.toLowerCase())) {
-          count = wholeWord(createBeginAndEndIndexes(phrase.toLowerCase(), word.toLowerCase()));
+          count = await wholeWord(createBeginAndEndIndexes(phrase.toLowerCase(), word.toLowerCase()), phrase);
           return count;
         } else {
           return 0;
@@ -100,3 +94,7 @@ module.exports = {
   };
 
 
+
+  module.exports = {
+    searchWords
+  }
