@@ -34,7 +34,7 @@ const App = () => {
     inputObject.completeWord = completeWord;
     inputObject.caseSensitive = caseSensitive;
 
-    axios.get("http://localhost:3000/wordSearch", {params: inputObject})
+    axios.get("http://localhost:2999/", {params: inputObject})
       .then(result => {
         setReturnedCount(result.data);
         return <div className="counted">{result.data}</div>;

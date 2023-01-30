@@ -12,7 +12,7 @@ app.use(morgan('dev'));
 app.use(cors());
 app.use(express.json());
 
-app.get('/wordSearch', (req, res) => {
+app.get('/*', (req, res) => {
   controllers.searchWords(req.query, (err, results) => {
     if (err) {
       res.sendStatus(404);
@@ -22,7 +22,7 @@ app.get('/wordSearch', (req, res) => {
   })
 })
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 2999;
 
 app.listen(process.env.PORT);
 console.log(`Listening at http://localhost:${process.env.PORT}`);
