@@ -8,8 +8,6 @@ async function searchWords(queryData, callback) {
   let caseSensitive = queryData.caseSensitive; //boolean in string format
   //can change quantifying requirements here or in App.jsx
   var results = await countWords(phrase, word, completeWord, caseSensitive);
-  // var results = await countTimes(phrase, word, completeWord, caseSensitive);
-
 
   return callback(null, results);
 };
