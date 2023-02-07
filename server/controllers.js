@@ -2,15 +2,18 @@ const express = require('express');
 
 //Main exported async function with req, res uses helper functions below
 async function searchWords(queryData, callback) {
-    let phrase = queryData.phrase;
-    let word = queryData.word;
-    let completeWord = queryData.completeWord; //boolean in string format
-    let caseSensitive = queryData.caseSensitive; //boolean in string format
-    //can change quantifying requirements here or in App.jsx
-    var results = await countWords(phrase, word, completeWord, caseSensitive);
+  let phrase = queryData.phrase;
+  let word = queryData.word;
+  let completeWord = queryData.completeWord; //boolean in string format
+  let caseSensitive = queryData.caseSensitive; //boolean in string format
+  //can change quantifying requirements here or in App.jsx
+  var results = await countWords(phrase, word, completeWord, caseSensitive);
+  // var results = await countTimes(phrase, word, completeWord, caseSensitive);
 
-    return callback(null, results);
+
+  return callback(null, results);
 };
+
 
 async function countWords(phrase, word, completeWord, caseSensitive) {
   var count = 0;
@@ -83,7 +86,7 @@ const wholeWord = (arrayOfIndexes, phrase) => {
     if (open.includes(phrase[arrayOfIndexes[j]]) || begin === true) {
       begin = true;
     }
-    if (close.includes(phrase[arrayOfIndexes[j+1]]) || arrayOfIndexes[j+1] === phrase.length) {
+    if (close.includes(phrase[arrayOfIndexes[j + 1]]) || arrayOfIndexes[j + 1] === phrase.length) {
       end = true;
     }
     if (begin && end) {
@@ -96,6 +99,6 @@ const wholeWord = (arrayOfIndexes, phrase) => {
   return count;
 };
 
-  module.exports = {
-    searchWords
-  }
+module.exports = {
+  searchWords
+}
