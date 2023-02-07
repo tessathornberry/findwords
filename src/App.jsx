@@ -33,7 +33,7 @@ const App = () => {
     inputObject.word = word;
     inputObject.completeWord = completeWord;
     inputObject.caseSensitive = caseSensitive;
-
+    //can add quantifying requirements here by using conditionals and setReturnedCount() or in server/controllers.js
     axios.get("http://localhost:2999/wordSearch", {params: inputObject}) //replace address with deployed public IP in deployment
       .then(result => {
         setReturnedCount(result.data);
@@ -63,23 +63,23 @@ const App = () => {
               <option value={true} >true</option>
               <option value={false} >false</option>
             </select>
+          </div>
+          <div className="caseSensitive">
+            <label>This is case-sensitive:</label>
+            <select name="isCaseSensitive" id="isCaseSensitive" defaultValue={true} onChange={e => setCaseSensitive(e.target.value)}>
+              <option value={true}>true</option>
+              <option value={false}>false</option>
+            </select>
+          </div>
+          <div className="search">
+            <button type="submit"  value="Submit" aria-label="search button">Search</button>
+            <button className="reset"type="reset"  value="Reset" aria-label="reset button">Start Over</button>
+          </div>
+          <div className="countResult">
+            <h3 className="number">Times your word appears in the phrase above: </h3>
+            <div className="counted">{returnedCount}</div>
+          </div>
         </div>
-        <div className="caseSensitive">
-          <label>This is case-sensitive:</label>
-          <select name="isCaseSensitive" id="isCaseSensitive" defaultValue={true} onChange={e => setCaseSensitive(e.target.value)}>
-            <option value={true}>true</option>
-            <option value={false}>false</option>
-          </select>
-        </div>
-        <div className="search">
-          <button type="submit"  value="Submit" aria-label="search button">Search</button>
-          <button className="reset"type="reset"  value="Reset" aria-label="reset button">Start Over</button>
-        </div>
-      <div className="countResult">
-        <h3 className="number">Times your word appears in the phrase above: </h3>
-        <div className="counted">{returnedCount}</div>
-      </div>
-      </div>
       </form>
     </AppBorder>
   )
