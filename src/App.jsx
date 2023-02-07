@@ -34,7 +34,7 @@ const App = () => {
     inputObject.completeWord = completeWord;
     inputObject.caseSensitive = caseSensitive;
 
-    axios.get("http://localhost:2999/wordSearch", {params: inputObject})
+    axios.get("http://localhost:2999/wordSearch", {params: inputObject}) //replace address with deployed public IP in deployment
       .then(result => {
         setReturnedCount(result.data);
         return <div className="counted">{result.data}</div>;
