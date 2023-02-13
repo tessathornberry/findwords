@@ -51,6 +51,7 @@ async function countWords(phrase, word, completeWord, caseSensitive) {
     }
   }
 };
+
 //creates beginning and end indices of instances of whole words appearing in the phrase
 const createBeginAndEndIndexes = (phrase, word) => {
   var index = 0;
@@ -69,11 +70,12 @@ const createBeginAndEndIndexes = (phrase, word) => {
   }
   return pairIndexes;
 };
-/*compares the beginning and ends of words and the characcters or spaces preceding and following them to lists of allowable punctuation and spaces or the very beginning or ending of the phrase*/
+
+/*compares the beginning and ends of words and the characters or spaces preceding and following them to lists of allowable punctuation and spaces or the very beginning or ending of the phrase*/
 const wholeWord = (arrayOfIndexes, phrase) => {
   var count = 0;
-  var open = " [{(\"\'</";
-  var close = " ]})\"\'>/!?:;,.";
+  var open = " [{(\"\'</.@";
+  var close = " ]})\"\'>/!?:;,.@";
   var begin = false;
   var end = false;
   //if the first index compared is the firsst index in the phrase, it's allowable

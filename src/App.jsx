@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 
@@ -34,7 +34,7 @@ const App = () => {
     inputObject.completeWord = completeWord;
     inputObject.caseSensitive = caseSensitive;
     //can add quantifying requirements here by using conditionals and setReturnedCount() or in server/controllers.js
-    axios.get("http://localhost:2999/wordSearch", {params: inputObject}) //replace address with deployed public IP in deployment
+    axios.get("http://localhost:2999/wordSearch", {params: inputObject}) //replace "localhost" with deployed public IP in deployment
       .then(result => {
         setReturnedCount(result.data);
         return <div className="counted">{result.data}</div>;
